@@ -1,0 +1,64 @@
+#! /opt/homebrew/Cellar/icarus-verilog/12.0/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/va_math.vpi";
+S_0x148004290 .scope module, "stimrct" "stimrct" 2 2;
+ .timescale 0 0;
+v0x600001f405a0_0 .var "A", 0 0;
+v0x600001f40630_0 .var "B", 0 0;
+v0x600001f406c0_0 .var "C", 0 0;
+o0x140028250 .functor BUFZ 1, C4<z>; HiZ drive
+v0x600001f40750_0 .net "e", 0 0, o0x140028250;  0 drivers
+v0x600001f407e0_0 .net "x", 0 0, L_0x6000006404d0;  1 drivers
+v0x600001f40870_0 .net "y", 0 0, L_0x600001c40000;  1 drivers
+S_0x148004400 .scope module, "cwd" "circuit_with_delay" 2 7, 2 21 0, S_0x148004290;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "A";
+    .port_info 1 /INPUT 1 "B";
+    .port_info 2 /INPUT 1 "C";
+    .port_info 3 /OUTPUT 1 "x";
+    .port_info 4 /OUTPUT 1 "y";
+L_0x600000640460/d .functor AND 1, v0x600001f405a0_0, v0x600001f40630_0, C4<1>, C4<1>;
+L_0x600000640460 .delay 1 (30,30,30) L_0x600000640460/d;
+L_0x6000006404d0/d .functor OR 1, L_0x600000640460, L_0x600001c40000, C4<0>, C4<0>;
+L_0x6000006404d0 .delay 1 (20,20,20) L_0x6000006404d0/d;
+v0x600001f401b0_0 .net "A", 0 0, v0x600001f405a0_0;  1 drivers
+v0x600001f40240_0 .net "B", 0 0, v0x600001f40630_0;  1 drivers
+v0x600001f402d0_0 .net "C", 0 0, v0x600001f406c0_0;  1 drivers
+L_0x140060010 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v0x600001f40360_0 .net *"_ivl_2", 0 0, L_0x140060010;  1 drivers
+v0x600001f403f0_0 .net "e", 0 0, L_0x600000640460;  1 drivers
+v0x600001f40480_0 .net "x", 0 0, L_0x6000006404d0;  alias, 1 drivers
+v0x600001f40510_0 .net "y", 0 0, L_0x600001c40000;  alias, 1 drivers
+L_0x600001c40000 .delay 1 (10,10,10) L_0x600001c40000/d;
+L_0x600001c40000/d .arith/sub 1, L_0x140060010, v0x600001f406c0_0;
+    .scope S_0x148004290;
+T_0 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x600001f405a0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x600001f40630_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x600001f406c0_0, 0, 1;
+    %vpi_call 2 14 "$monitor", $time, " A=%b, B=%b, C=%b, e=%b, x=%b, y=%b", v0x600001f405a0_0, v0x600001f40630_0, v0x600001f406c0_0, v0x600001f40750_0, v0x600001f407e0_0, v0x600001f40870_0 {0 0 0};
+    %delay 100, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x600001f405a0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x600001f40630_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x600001f406c0_0, 0, 1;
+    %delay 100, 0;
+    %vpi_call 2 16 "$finish" {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "circuit_with_delay.v";
